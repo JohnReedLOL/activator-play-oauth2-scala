@@ -1,13 +1,13 @@
-New log file opened at Wed Jul 20 23:48:07 EDT 2016 by 5897@john-VirtualBox
-Taking next connection to: 35061
-New client attempting to connect on port: 44688-35061
-  Address = /127.0.1.1:35061
-This client on port 44688 has uuid 95bf30ab-2641-4df4-bc53-e403180c2ab7 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-95bf30ab-2641-4df4-bc53-e403180c2ab7
-Taking next connection to: 35061
-New client attempting to connect on port: 45750-35061
-  Address = /127.0.1.1:35061
-Handshake exception on socket: 45750
+New log file opened at Thu Jul 21 10:35:57 EDT 2016 by 5139@john-VirtualBox
+Taking next connection to: 33718
+New client attempting to connect on port: 55994-33718
+  Address = /127.0.1.1:33718
+This client on port 55994 has uuid 1cd491fd-d090-4175-b441-79bb3e4f779f configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-1cd491fd-d090-4175-b441-79bb3e4f779f
+Taking next connection to: 33718
+New client attempting to connect on port: 56002-33718
+  Address = /127.0.1.1:33718
+Handshake exception on socket: 56002
 sbt.impl.ipc.HandshakeException: Unable to perform handshake
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
 	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
@@ -17,12 +17,9 @@ Caused by: java.io.EOFException
 	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
 	... 2 more
-Taking next connection to: 35061
-New client attempting to connect on port: 45752-35061
-  Address = /127.0.1.1:35061
-This client on port 45752 has uuid 5aefb170-d1a5-41f3-9210-023e00a5ae7e configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: activator-95bf30ab-2641-4df4-bc53-e403180c2ab7, play-fork-run-5aefb170-d1a5-41f3-9210-023e00a5ae7e
-Taking next connection to: 35061
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 35061
+Taking next connection to: 33718
+New client attempting to connect on port: 56004-33718
+  Address = /127.0.1.1:33718
+This client on port 56004 has uuid 9724f6cf-718e-4a99-b981-a8fb6b9b2ba1 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: activator-1cd491fd-d090-4175-b441-79bb3e4f779f, play-fork-run-9724f6cf-718e-4a99-b981-a8fb6b9b2ba1
+Taking next connection to: 33718

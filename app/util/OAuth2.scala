@@ -2,24 +2,24 @@ package util
 
 import play.api.Application
 import play.api.Play
-import play.api.http.{MimeTypes, HeaderNames}
-import play.api.libs.ws.WS
-import play.api.mvc.{Results, Action, Controller}
+import play.api.http.{HeaderNames, MimeTypes}
+import play.api.libs.ws.{WS, WSResponse}
+import play.api.mvc.{Action, AnyContent, Controller, Results}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class OAuth2(application: Application) {
-  lazy val githubAuthId = application.configuration.getString("github.client.id").get
-  lazy val githubAuthSecret = application.configuration.getString("github.client.secret").get
+  lazy val githubAuthId: String = application.configuration.getString("github.client.id").get
+  lazy val githubAuthSecret: String = application.configuration.getString("github.client.secret").get
 
   def getAuthorizationUrl(redirectUri: String, scope: String, state: String): String = {
-    val baseUrl = application.configuration.getString("github.redirect.url").get
+    val baseUrl: String = application.configuration.getString("github.redirect.url").get
     baseUrl.format(githubAuthId, redirectUri, scope, state)
   }
 
   def getToken(code: String): Future[String] = {
-    val tokenResponse = WS.url("https://github.com/login/oauth/access_token")(application).
+    val tokenResponse: Future[WSResponse] = WS.url("https://github.com/login/oauth/access_token")(application).
       withQueryString("client_id" -> githubAuthId,
         "client_secret" -> githubAuthSecret,
         "code" -> code).
@@ -37,7 +37,7 @@ class OAuth2(application: Application) {
 object OAuth2 extends Controller {
   lazy val oauth2 = new OAuth2(Play.current)
 
-  def callback(codeOpt: Option[String] = None, stateOpt: Option[String] = None) = Action.async { implicit request =>
+  def callback(codeOpt: Option[String] = None, stateOpt: Option[String] = None): Action[AnyContent] = Action.async { implicit request =>
     (for {
       code <- codeOpt
       state <- stateOpt
@@ -56,8 +56,8 @@ object OAuth2 extends Controller {
     }).getOrElse(Future.successful(BadRequest("No parameters supplied")))
   }
 
-  def success() = Action.async { request =>
-    implicit val app = Play.current
+  def success(): Action[AnyContent] = Action.async { request =>
+    implicit val app: Application = Play.current
     request.session.get("oauth-token").fold(Future.successful(Unauthorized("No way Jose"))) { authToken =>
       WS.url("https://api.github.com/user/repos").
         withHeaders(HeaderNames.AUTHORIZATION -> s"token $authToken").
